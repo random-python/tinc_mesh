@@ -1,0 +1,23 @@
+dist: xenial
+sudo: true
+language: python
+git:
+  depth: 10
+branches:
+  only:
+  - master
+  - /develop/
+matrix:
+  include:
+  - python: 3.7
+    env: TOXENV=py37
+install:
+- pip install tox
+script:
+- echo $HOME
+- echo $USER
+- uname -a
+- ip addr
+- python --version
+- systemctl --version
+- tox

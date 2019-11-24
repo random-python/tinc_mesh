@@ -1,0 +1,35 @@
+#
+# per-mesh service
+#
+
+[Unit]
+Description=Tinc net %i
+Documentation=info:tinc
+Documentation=man:tinc(8) man:tinc.conf(5)
+Documentation=http://tinc-vpn.org/docs/
+PartOf=tinc.service
+ReloadPropagatedFrom=tinc.service
+ConditionPathExists=/etc/tinc/%i
+
+[Service]
+
+# propagate environment to tinker.py
+Environment=TINKER_ETC_DIR=/etc/tinc
+Environment=TINKER_NET_NAME=%i
+Environment=TINKER_CONF_FILE=tinc.conf
+Environment=TINKER_HOST_BASE=hosts
+Environment=TINKER_NODE_BASE=nodes
+
+Type=simple
+WorkingDirectory=/etc/tinc/%i
+
+ExecStart=/usr/bin/tincd -n %i -D
+ExecReload=/usr/bin/tincd -n %i -kHUP
+
+KillMode=mixed
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=5
+
+[Install]
+WantedBy=tinc.service
