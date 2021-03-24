@@ -6,10 +6,10 @@ PyPi release rotation
 
 import os
 
-from devrepo import base_dir
+# from devrepo import base_dir
 from pypirepo import perform_update
 
-project_dir = base_dir()
+project_dir = "./.." # base_dir()
 project_name = 'tinc_mesh'
 
 perform_update(project_dir, project_name)
